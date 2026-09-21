@@ -68,23 +68,27 @@ export const TabNavigator = () => {
   return (
     <View style={{ flex: 1 }}>
       <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        animation: 'shift', // Enable smooth tab transitions in RN7
-        tabBarStyle: {
-          position: 'absolute',
-          bottom: Platform.OS === 'ios' ? 24 : 16,
-          left: 20,
-          right: 20,
-          elevation: 0,
-          backgroundColor: isDarkMode ? 'rgba(28, 28, 30, 0.7)' : 'rgba(255, 255, 255, 0.8)',
-          borderRadius: 35,
-          height: 70,
+        safeAreaInsets={{ bottom: 0 }}
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIconStyle: {
+            margin: 0,
+            height: '100%',
+          },
+          tabBarStyle: {
+            position: 'absolute',
+            bottom: Platform.OS === 'ios' ? 24 : 16,
+            left: 20,
+            right: 20,
+            elevation: 0,
+            backgroundColor: isDarkMode ? 'rgba(28, 28, 30, 0.8)' : 'rgba(255, 255, 255, 0.95)',
+            borderRadius: 35,
+          height: 65,
+          paddingBottom: 0,
+          paddingTop: 0,
           borderWidth: 1,
           borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
-          paddingBottom: 0, // Removes default bottom padding that pushes icons up
-          paddingTop: 0,
           ...Platform.select({
             web: { boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' } as any,
             default: {
@@ -96,7 +100,7 @@ export const TabNavigator = () => {
           })
         },
         tabBarItemStyle: {
-          flex: 1,
+          height: '100%',
           justifyContent: 'center',
           alignItems: 'center',
         },
@@ -116,7 +120,7 @@ export const TabNavigator = () => {
         component={HomeScreen} 
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={{ transform: [{ translateY: Platform.OS === 'web' ? 16 : 6 }] }}>
+            <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
               <Ionicons name={focused ? 'shield-checkmark' : 'shield-checkmark-outline'} size={28} color={focused ? theme.primary : theme.textSecondary} />
             </View>
           ),
@@ -128,7 +132,7 @@ export const TabNavigator = () => {
         component={GroupScreen} 
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={{ transform: [{ translateY: Platform.OS === 'web' ? 16 : 6 }] }}>
+            <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
               <Ionicons name={focused ? 'folder' : 'folder-outline'} size={28} color={focused ? theme.primary : theme.textSecondary} />
             </View>
           ),
@@ -154,7 +158,7 @@ export const TabNavigator = () => {
         component={SyncScreen} 
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={{ transform: [{ translateY: Platform.OS === 'web' ? 16 : 6 }] }}>
+            <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
               <Ionicons name={focused ? 'cloud-done' : 'cloud-offline-outline'} size={28} color={focused ? theme.primary : theme.textSecondary} />
             </View>
           ),
@@ -165,7 +169,7 @@ export const TabNavigator = () => {
         component={SettingsScreen} 
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={{ transform: [{ translateY: Platform.OS === 'web' ? 16 : 6 }] }}>
+            <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
               <Ionicons name={focused ? 'settings' : 'settings-outline'} size={28} color={focused ? theme.primary : theme.textSecondary} />
             </View>
           ),

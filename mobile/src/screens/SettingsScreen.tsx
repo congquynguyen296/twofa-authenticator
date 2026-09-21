@@ -6,7 +6,7 @@ import { Typography } from '../theme/typography';
 import { useVaultStore } from '../stores/vaultStore';
 import { Metrics } from '../theme/metrics';
 import { Ionicons } from '@expo/vector-icons';
-
+import { GradientText } from '../components/GradientText';
 export const SettingsScreen = () => {
   const systemTheme = useColorScheme();
   const { theme: storeTheme, lock } = useVaultStore();
@@ -20,29 +20,30 @@ export const SettingsScreen = () => {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.header}>
-        <Text 
-          style={[
-            Typography.h1, 
-            Platform.OS === 'web' ? {
-              backgroundImage: 'linear-gradient(45deg, #007AFF, #5AC8FA)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            } as any : { color: theme.primary }
-          ]}
-        >
+        <GradientText style={Typography.h1}>
           Settings
-        </Text>
+        </GradientText>
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={[styles.section, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <TouchableOpacity style={styles.row} onPress={lock}>
+          <View style={styles.row}>
             <View style={styles.rowLeft}>
-              <Ionicons name="lock-closed-outline" size={24} color={theme.primary} />
-              <Text style={[Typography.bodyMedium, { color: theme.text, marginLeft: 12 }]}>Lock Vault</Text>
+              <Ionicons name="color-palette-outline" size={24} color={theme.textSecondary} />
+              <Text style={[Typography.bodyMedium, { color: theme.text, marginLeft: 12 }]}>Theme</Text>
             </View>
-            <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
-          </TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TouchableOpacity onPress={() => useVaultStore.getState().setTheme('light')} style={{ paddingHorizontal: 8 }}>
+                <Text style={[Typography.body, { color: storeTheme === 'light' ? theme.primary : theme.textSecondary, fontWeight: storeTheme === 'light' ? 'bold' : 'normal' }]}>Light</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => useVaultStore.getState().setTheme('dark')} style={{ paddingHorizontal: 8 }}>
+                <Text style={[Typography.body, { color: storeTheme === 'dark' ? theme.primary : theme.textSecondary, fontWeight: storeTheme === 'dark' ? 'bold' : 'normal' }]}>Dark</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => useVaultStore.getState().setTheme('system')} style={{ paddingHorizontal: 8 }}>
+                <Text style={[Typography.body, { color: storeTheme === 'system' ? theme.primary : theme.textSecondary, fontWeight: storeTheme === 'system' ? 'bold' : 'normal' }]}>System</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
 
         <View style={[styles.section, { backgroundColor: theme.surface, borderColor: theme.border }]}>

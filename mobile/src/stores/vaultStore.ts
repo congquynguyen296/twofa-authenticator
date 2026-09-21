@@ -37,7 +37,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   isLoading: false,
   error: null,
   theme: 'system',
-  isLocked: true, // App starts locked
+  isLocked: false, // App is no longer locked by default
 
   setTheme: (theme) => set({ theme }),
 

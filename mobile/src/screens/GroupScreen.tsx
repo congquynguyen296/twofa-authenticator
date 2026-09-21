@@ -7,6 +7,7 @@ import { Typography } from '../theme/typography';
 import { Metrics } from '../theme/metrics';
 import { Ionicons } from '@expo/vector-icons';
 import { TextField } from '../components/TextField';
+import { GradientText } from '../components/GradientText';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { CustomAlert } from '../components/CustomAlert';
 import { useRoute } from '@react-navigation/native';
@@ -80,18 +81,9 @@ export const GroupScreen = () => {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.header}>
-        <Text 
-          style={[
-            Typography.h1, 
-            Platform.OS === 'web' ? {
-              backgroundImage: 'linear-gradient(45deg, #007AFF, #5AC8FA)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            } as any : { color: theme.primary }
-          ]}
-        >
+        <GradientText style={Typography.h1}>
           Groups
-        </Text>
+        </GradientText>
         <TouchableOpacity onPress={() => setIsAdding(!isAdding)} style={styles.headerBtn}>
           <Ionicons name={isAdding ? "close" : "add"} size={28} color={theme.primary} />
         </TouchableOpacity>

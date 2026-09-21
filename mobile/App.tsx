@@ -8,7 +8,7 @@ import { TabNavigator } from './src/navigation/TabNavigator';
 import { AddAccountScreen } from './src/screens/AddAccountScreen';
 import { ScannerScreen } from './src/screens/ScannerScreen';
 import { EditAccountScreen } from './src/screens/EditAccountScreen';
-import { LockScreen } from './src/screens/LockScreen';
+
 import { useVaultStore } from './src/stores/vaultStore';
 import { Colors } from './src/theme/colors';
 
@@ -22,22 +22,12 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const { isLocked, lock, theme: storeTheme } = useVaultStore();
+  const { theme: storeTheme } = useVaultStore();
   const systemTheme = useColorScheme();
   const isDarkMode = storeTheme === 'system' ? systemTheme === 'dark' : storeTheme === 'dark';
   const theme = isDarkMode ? Colors.dark : Colors.light;
 
-  useEffect(() => {
-    const handleAppStateChange = (nextAppState: AppStateStatus) => {
-      // Lock the app when it goes to the background
-      if (nextAppState === 'background' || nextAppState === 'inactive') {
-        lock();
-      }
-    };
 
-    const subscription = AppState.addEventListener('change', handleAppStateChange);
-    return () => subscription.remove();
-  }, [lock]);
 
   const navTheme = isDarkMode ? DarkTheme : DefaultTheme;
   const customNavTheme = {
@@ -50,7 +40,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={{ backgroundColor: theme.background }}>
-      {isLocked && <LockScreen theme={theme} />}
+
       <NavigationContainer theme={customNavTheme}>
         <Stack.Navigator
           initialRouteName="MainTabs"

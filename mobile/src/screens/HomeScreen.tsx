@@ -9,6 +9,7 @@ import { AccountCard } from '../components/AccountCard';
 import { EmptyState } from '../components/EmptyState';
 import { Metrics } from '../theme/metrics';
 import { Ionicons } from '@expo/vector-icons';
+import { GradientText } from '../components/GradientText';
 
 type Props = {
   navigation: NativeStackNavigationProp<any, any>;
@@ -43,47 +44,31 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={styles.header}>
-        <Text 
-          style={[
-            Typography.h1, 
-            Platform.OS === 'web' ? {
-              backgroundImage: 'linear-gradient(45deg, #007AFF, #5AC8FA)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            } as any : { color: theme.primary }
-          ]}
-        >
+        <GradientText style={Typography.h1}>
           VaultOTP
-        </Text>
+        </GradientText>
       </View>
       
       <View style={styles.searchContainer}>
         <View style={[
-          styles.searchBarWrapper,
-          isFocused ? (Platform.OS === 'web' ? {
-            backgroundImage: 'linear-gradient(45deg, #007AFF, #5AC8FA)'
-          } as any : { backgroundColor: theme.primary }) : { backgroundColor: 'transparent' }
+          styles.searchBar, 
+          { backgroundColor: theme.surface, borderColor: isFocused ? theme.primary : theme.border }
         ]}>
-          <View style={[
-            styles.searchBar, 
-            { backgroundColor: theme.surface, borderColor: isFocused ? 'transparent' : theme.border }
-          ]}>
-            <Ionicons name="search" size={20} color={isFocused ? theme.primary : theme.textSecondary} />
-            <TextInput
-              style={[styles.searchInput, { color: theme.text }]}
-              placeholder="Search accounts..."
-              placeholderTextColor={theme.textSecondary}
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-            />
-            {searchQuery.length > 0 && (
-              <TouchableOpacity onPress={() => setSearchQuery('')}>
-                <Ionicons name="close-circle" size={20} color={theme.textSecondary} />
-              </TouchableOpacity>
-            )}
-          </View>
+          <Ionicons name="search" size={20} color={isFocused ? theme.primary : theme.textSecondary} />
+          <TextInput
+            style={[styles.searchInput, { color: theme.text }]}
+            placeholder="Search accounts..."
+            placeholderTextColor={theme.textSecondary}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+          {searchQuery.length > 0 && (
+            <TouchableOpacity onPress={() => setSearchQuery('')}>
+              <Ionicons name="close-circle" size={20} color={theme.textSecondary} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       
@@ -140,9 +125,6 @@ const styles = StyleSheet.create({
     marginBottom: Metrics.spacing.md,
   },
   searchBarWrapper: {
-    borderRadius: 18, // 16 + 2px padding
-    padding: 2, // 2px gradient border thickness when focused
-    marginHorizontal: -2, // Offset padding so layout doesn't shift
   },
   searchBar: {
     flexDirection: 'row',

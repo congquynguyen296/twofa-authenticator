@@ -1,7 +1,10 @@
 import { SecurityService } from './securityService';
 
-// Fallback to localhost for dev testing
-const API_BASE_URL = 'http://localhost:8080/api';
+// Fallback to localhost for web, but use computer's LAN IP for physical device testing
+import { Platform } from 'react-native';
+const API_BASE_URL = Platform.OS === 'web' 
+  ? 'http://localhost:8080/api' 
+  : 'http://192.168.1.27:8080/api';
 
 export const SyncService = {
   /**

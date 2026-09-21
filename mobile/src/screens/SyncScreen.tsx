@@ -10,6 +10,7 @@ import { SecurityService } from '../services/securityService';
 import { TextField } from '../components/TextField';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { CustomAlert } from '../components/CustomAlert';
+import { GradientText } from '../components/GradientText';
 
 export const SyncScreen = () => {
   const systemTheme = useColorScheme();
@@ -80,18 +81,9 @@ export const SyncScreen = () => {
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.header}>
-          <Text 
-            style={[
-              Typography.h1, 
-              Platform.OS === 'web' ? {
-                backgroundImage: 'linear-gradient(45deg, #007AFF, #5AC8FA)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              } as any : { color: theme.primary }
-            ]}
-          >
+          <GradientText style={Typography.h1}>
             Cloud Sync
-          </Text>
+          </GradientText>
           <Text style={[Typography.body, { color: theme.textSecondary, marginTop: 8 }]}>
             Securely backup your encrypted vault to our Zero-Knowledge cloud.
           </Text>
